@@ -1,5 +1,40 @@
 
 const readline = require('readline');
+//________________________________________________________________________________________
+
+function calculateRandomNumber(min, max) {
+  const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomNumber;
+}
+
+function genderQuantity(gender = '') {
+  const quantity = students.filter(student => student['gender'] === gender).length
+  return quantity
+}
+
+function getAverage(values = []) {
+  return values.reduce((accum, currentValue) => accum += currentValue, 0) / values.length;
+}
+
+//________________________________________________________________________________________
+
+const students = [{
+  age: 32,
+  examScores: [],
+  gender: 'male',
+  name: 'edu'
+},
+{
+  age: 29,
+  examScores: [],
+  gender: 'female',
+  name: 'silvia'
+}]
+
+const availableMaleNames = ['pepe', 'juan', 'victor', 'Leo', 'francisco', 'carlos'];
+const availableFemaleNames = ['cecilia', 'ana', 'luisa', 'silvia', 'isabel', 'virginia'];
+const availableGenders = ['male', 'female'];
+//__________________________________________________________________________________________
 
 async function classroomManagement() {
   const rl = readline.createInterface({
@@ -18,7 +53,6 @@ function getUserNumber() {
 }
 let selectedNumber = 1
 while(selectedNumber > 0 && selectedNumber < 16) {
-  //async function selectNumber(){
     selectedNumber = await getUserNumber();
     switch (selectedNumber) {
       case 1:
@@ -28,13 +62,82 @@ while(selectedNumber > 0 && selectedNumber < 16) {
       case 2:
         console.log("Students quantity: ", students.length);
         break
-    
+      case 3:
+        console.log("Los alumnos son: ")
+        for (let i=0; i< students.length; i++){
+          console.log(students[i].name);
+        }
+        break
+      case 4:
+        students.pop();
+        break
+      case 5: 
+        let alumnIndexToDelete = calculateRandomNumber(0, (students.length -1));
+        students.splice(alumnIndexToDelete, 1);
+        break
+      case 6:
+        const femAlumns = students.filter(student => student['gender'] === 'female');
+        console.log(femAlumns);
+        break
+      case 7:
+        const femNum = genderQuantity('female');
+        console.log(femNum);
+        const maleNum = genderQuantity('male');
+        console.log(maleNum);
+        break
+      case 8:
+        console.log(students.every(student => student['gender'] === 'female'));
+        break
+      case 9:
+        students.forEach(student => (student['age'] > 19 && student['age'] < 26) ? console.log(student['name']) : null);
+        break
+      case 10:
+        const studentsNames = [...availableFemaleNames, ...availableMaleNames];
+        const namesIndex = calculateRandomNumber(0, (studentsNames.length -1));
+        const randomName = studentsNames[namesIndex]
+        const randomAge = calculateRandomNumber(20, 50);
+        const randomGender = availableFemaleNames.includes(randomName) ? 'female' : 'male';
+        const examScores = [];
+
+        students.push({
+          age: randomAge, 
+          examScores,
+          gender: randomGender,
+          name: randomName
+        });
+        break
+      case 11: //Mostrar por consola el nombre de la persona más joven de la clase.
+        students.reduce()
+        break
+      case 12:
+        let studentsAges = []
+        students.forEach(student => {
+          studentsAges.push(student.age);
+        });
+        const meanAverage = Math.round(getAverage(studentsAges));
+        console.log('La edad promedio de todos los alumnos es:', meanAverage);
+        break
+      case 13:
+        break
+      case 14:
+        break
+      case 15:
+        students.sort((studentA, studentB) => {
+          const nameA = studentA.name.toUpperCase(); 
+          const nameB = studentB.name.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+        break
       default:
+        console.log("Opción inválida.")
         break;
     }
-    console.log(selectedNumber)
-  //}
-  //selectNumber()
 };
 };
 
@@ -57,44 +160,14 @@ function init () {
 12- Mostrar por consola la edad media de todos los alumnos de la clase.\n
 13- Mostrar por consola la edad media de las chicas de la clase.\n
 14- Añadir nueva nota a los alumnos. Por cada alumno de la clase, tendremos que calcular una nota de forma aleatoria(número entre 0 y 10) y añadirla a su listado de notas.\n
-15- Ordenar el array de alumnos alfabéticamente según su nombre.`)
+15- Ordenar el array de alumnos alfabéticamente según su nombre.\n`)
   
   classroomManagement()
 }
 
 init()
 
-
-const students = [{
-  age: 32,
-  examScores: [],
-  gender: 'male',
-  name: 'edu'
-},
-{
-  age: 29,
-  examScores: [],
-  gender: 'female',
-  name: 'silvia'
-}]
-
-const availableMaleNames = ['pepe', 'juan', 'victor', 'Leo', 'francisco', 'carlos'];
-const availableFemaleNames = ['cecilia', 'ana', 'luisa', 'silvia', 'isabel', 'virginia'];
-const availableGenders = ['male', 'female'];
-
-//________________________________________________________________________________________
-
-function calculateRandomNumber(min, max) {
-  const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomNumber;
-}
-
-function genderQuantity(gender = '') {
-  const quantity = students.filter(student => student['gender'] === gender).length
-  return quantity
-}
-
-//________________________________________________________________________________________
+/*________________________________________________________________________________________
 
 //1 - Mostrar en formato de tabla todos los alumnos.
 console.table(students);
@@ -129,7 +202,7 @@ for (let i=0; i < students.length; i++) {
     console.log(students[i]);
   } 
 }
-*/
+
 console.log(students
   .filter(student => student['gender'] === 'female'));
 
@@ -153,3 +226,5 @@ students.forEach(student => (student['age'] > 19 && student['age'] < 26) ? conso
 //---listado de calificaciones vacío.
 
 students.push({});
+
+*/
