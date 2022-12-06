@@ -3,13 +3,11 @@ const readline = require('readline');
 //________________________________________________________________________________________
 
 function calculateRandomNumber(min, max) {
-  const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomNumber;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function genderQuantity(gender = '') {
-  const quantity = students.filter(student => student['gender'] === gender).length
-  return quantity
+  return students.filter(student => student['gender'] === gender).length;
 }
 
 function getAverage(values = []) {
@@ -18,18 +16,20 @@ function getAverage(values = []) {
 
 //________________________________________________________________________________________
 
-const students = [{
-  age: 32,
-  examScores: [],
-  gender: 'male',
-  name: 'edu'
-},
-{
-  age: 29,
-  examScores: [],
-  gender: 'female',
-  name: 'silvia'
-}]
+const students = [
+  {
+    age: 25,
+    examScores: [],
+    gender: 'male',
+    name: 'edu'
+  },
+  {
+    age: 20,
+    examScores: [],
+    gender: 'female',
+    name: 'silvia'
+  }
+]
 
 const availableMaleNames = ['pepe', 'juan', 'victor', 'Leo', 'francisco', 'carlos'];
 const availableFemaleNames = ['cecilia', 'ana', 'luisa', 'silvia', 'isabel', 'virginia'];
@@ -62,19 +62,19 @@ while(selectedNumber > 0 && selectedNumber < 16) {
 
       case 2: //Mostrar por consola la cantidad de alumnos que hay en clase.
         console.log("Cantidad de alumnos: ", students.length);
-        break
+        break;
 
       case 3: //Mostrar por consola todos los nombres de los alumnos.
         console.log("Los alumnos son: ")
         for (let i=0; i< students.length; i++){
           console.log(students[i].name);
         }
-        break
+        break;
 
       case 4: //Eliminar el último alumno de la clase
         students.pop();
         console.log('El ultimo alumno ha sido eliminado.')
-        break
+        break;
 
       case 5: //Eliminar un alumno aleatoriamente de la clase
         let alumnIndexToDelete = calculateRandomNumber(0, (students.length -1));
@@ -90,7 +90,7 @@ while(selectedNumber > 0 && selectedNumber < 16) {
       case 7: //Mostrar por consola el número de chicos y chicas que hay en la clase.
         const femNum = genderQuantity('female');
         const maleNum = genderQuantity('male');
-        console.log('Hay', maleNum, 'chicos y', femNum, 'chicas en la clase.');
+        console.log('Hay', maleNum, 'chicos y', femNum, 'chica/s en la clase.');
         break
 
       case 8: //Mostrar true o false por consola si todos los alumnos de la clase son chicas.
@@ -144,7 +144,7 @@ while(selectedNumber > 0 && selectedNumber < 16) {
 
       case 14: //Añadir nueva nota a los alumnos. Por cada alumno de la clase, 
       //tendremos que calcular una nota de forma aleatoria(número entre 0 y 10) y añadirla a su listado de notas.
-          students.forEach(students => {
+        students.forEach(students => {
           students.examScores.push(calculateRandomNumber(0, 10));
         });
         console.log(students);
@@ -185,10 +185,6 @@ function init () {
 8- Mostrar true o false por consola si todos los alumnos de la clase son chicas.\n
 9- Mostrar por consola los nombres de los alumnos que tengan entre 20 y 25 años.\n
 10- Añadir un alumno nuevo con los siguientes datos:\n
----nombre aleatorio.\n
----edad aleatoria entre 20 y 50 años.\n
----género aleatorio.\n
----listado de calificaciones vacío.\n
 11- Mostrar por consola el nombre de la persona más joven de la clase.\n
 12- Mostrar por consola la edad media de todos los alumnos de la clase.\n
 13- Mostrar por consola la edad media de las chicas de la clase.\n
